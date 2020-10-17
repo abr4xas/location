@@ -1,53 +1,90 @@
-# :package_description
+# Import states > cities > neighborhood
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/:vendor_name/:package_name.svg?style=flat-square)](https://packagist.org/packages/:vendor_name/:package_name)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/:vendor_name/:package_name/run-tests?label=tests)](https://github.com/:vendor_name/:package_name/actions?query=workflow%3Arun-tests+branch%3Amaster)
-[![Total Downloads](https://img.shields.io/packagist/dt/:vendor_name/:package_name.svg?style=flat-square)](https://packagist.org/packages/:vendor_name/:package_name)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/abr4xas/location.svg?style=flat-square)](https://packagist.org/packages/abr4xas/location)
+[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/abr4xas/location/run-tests?label=tests)](https://github.com/abr4xas/location/actions?query=workflow%3Arun-tests+branch%3Amaster)
+[![Total Downloads](https://img.shields.io/packagist/dt/abr4xas/location.svg?style=flat-square)](https://packagist.org/packages/abr4xas/location)
 
-**Note:** Run `./configure-skeleton` to get started, or manually replace  ```:author_name``` ```:author_username``` ```:author_email``` ```:vendor_name``` ```:package_name``` ```:package_description``` with their correct values in [README.md](README.md), [CHANGELOG.md](CHANGELOG.md), [CONTRIBUTING.md](.github/CONTRIBUTING.md), [LICENSE.md](LICENSE.md) and [composer.json](composer.json) files, then delete this line. You can also run `configure-skeleton.sh` to do this automatically.
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+Import states > cities > neighborhood from specific country.
 
-## Support us
-
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/package-skeleton-laravel.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/package-skeleton-laravel)
-
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
-
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
 
 ## Installation
 
 You can install the package via composer:
 
 ```bash
-composer require :vendor_name/:package_name
+composer require abr4xas/location
 ```
 
 You can publish and run the migrations with:
 
 ```bash
-php artisan vendor:publish --provider="Spatie\Skeleton\SkeletonServiceProvider" --tag="migrations"
+php artisan vendor:publish --provider="Abr4xas\Location\LocationServiceProvider" --tag="migrations"
 php artisan migrate
 ```
 
-You can publish the config file with:
+You can publish the model files with:
 ```bash
-php artisan vendor:publish --provider="Spatie\Skeleton\SkeletonServiceProvider" --tag="config"
-```
-
-This is the contents of the published config file:
-
-```php
-return [
-];
+php artisan vendor:publish --provider="Abr4xas\Location\LocationServiceProvider" --tag="models"
 ```
 
 ## Usage
 
 ``` php
-$skeleton = new Spatie\Skeleton();
-echo $skeleton->echoPhrase('Hello, Spatie!');
+php artisan import:states-from {country=AR}
+php artisan import:cities
+php artisan import:neighborhoods
+```
+
+country list
+
+```
+country: AR,
+name: Argentina,
+country: BO,
+name: Bolivia,
+country: BR,
+name: Brasil,
+country: CL,
+name: Chile,
+country: CN,
+name: China,
+country: CO,
+name: Colombia,
+country: CR,
+name: Costa Rica,
+country: CBT,
+name: Cross Border Trade,
+country: EC,
+name: Ecuador,
+country: SV,
+name: El Salvador,
+country: GT,
+name: Guatemala,
+country: HN,
+name: Honduras,
+country: MX,
+name: Mexico,
+country: NI,
+name: Nicaragua,
+country: PA,
+name: Panamá,
+country: PY,
+name: Paraguay,
+country: PE,
+name: Peru,
+country: PT,
+name: Portugal,
+country: PR,
+name: Puerto Rico,
+country: GB,
+name: Reino Uncountryo,
+country: DO,
+name: República Dominicana,
+country: UY,
+name: Uruguay,
+country: VE,
+name: Venezuela,
 ```
 
 ## Testing
@@ -70,8 +107,10 @@ Please review [our security policy](../../security/policy) on how to report secu
 
 ## Credits
 
-- [:author_name](https://github.com/:author_username)
+- [angel cruz](https://github.com/abr4xas)
 - [All Contributors](../../contributors)
+
+> I'm using Mercado Libre API for this package. Kudos to all MeLi devs <3
 
 ## License
 
