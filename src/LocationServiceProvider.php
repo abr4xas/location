@@ -2,8 +2,10 @@
 
 namespace Abr4xas\Location;
 
-use Abr4xas\Location\Commands\LocationCommand;
 use Illuminate\Support\ServiceProvider;
+use Abr4xas\Location\Commands\CitiesCommand;
+use Abr4xas\Location\Commands\LocationCommand;
+use Abr4xas\Location\Commands\NeighborhoodsCommand;
 
 class LocationServiceProvider extends ServiceProvider
 {
@@ -30,6 +32,8 @@ class LocationServiceProvider extends ServiceProvider
 
             $this->commands([
                 LocationCommand::class,
+                CitiesCommand::class,
+                NeighborhoodsCommand::class
             ]);
         }
     }
