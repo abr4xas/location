@@ -1,7 +1,7 @@
 # Import states > cities > neighborhood
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/abr4xas/location.svg?style=flat-square)](https://packagist.org/packages/abr4xas/location)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/abr4xas/location/run-tests?label=tests)](https://github.com/abr4xas/location/actions?query=workflow%3Arun-tests+branch%3Amaster)
+[![GitHub Tests Action Status](https://github.com/abr4xas/location/workflows/Tests/badge.svg)](https://github.com/abr4xas/location/actions?query=workflow%3Arun-tests+branch%3Amaster)
 [![Total Downloads](https://img.shields.io/packagist/dt/abr4xas/location.svg?style=flat-square)](https://packagist.org/packages/abr4xas/location)
 
 
@@ -78,7 +78,7 @@ name: Portugal,
 country: PR,
 name: Puerto Rico,
 country: GB,
-name: Reino Uncountryo,
+name: Reino Unido,
 country: DO,
 name: República Dominicana,
 country: UY,
