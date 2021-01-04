@@ -1,7 +1,7 @@
 # Import states > cities > neighborhood
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/abr4xas/location.svg?style=flat-square)](https://packagist.org/packages/abr4xas/location)
-[![GitHub Tests Action Status](https://github.com/abr4xas/location/workflows/Tests/badge.svg)](https://github.com/abr4xas/location/actions?query=workflow%3Arun-tests+branch%3Amaster)
+[![GitHub Tests Action Status](https://github.com/abr4xas/location/workflows/Tests/badge.svg?style=flat-square)](https://github.com/abr4xas/location/actions?query=workflow%3Arun-tests+branch%3Amaster)
 [![Total Downloads](https://img.shields.io/packagist/dt/abr4xas/location.svg?style=flat-square)](https://packagist.org/packages/abr4xas/location)
 
 
@@ -22,21 +22,16 @@ You can publish and run the migrations with:
 php artisan vendor:publish --provider="Abr4xas\Location\LocationServiceProvider" --tag="migrations"
 php artisan migrate
 ```
-
-You can publish the model files with:
-```bash
-php artisan vendor:publish --provider="Abr4xas\Location\LocationServiceProvider" --tag="models"
-```
-
 ## Usage
 
-``` php
-php artisan import:states-from {country=AR}
+``` bash
+php artisan import:states-from AR
 php artisan import:cities
 php artisan import:neighborhoods
 ```
 
-country list
+<details>
+    <summary>country list:</summary>
 
 ```
 country: AR,
@@ -87,6 +82,10 @@ country: VE,
 name: Venezuela,
 ```
 
+</details>
+
+
+
 ## Testing
 
 ``` bash
@@ -100,10 +99,6 @@ Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed re
 ## Contributing
 
 Please see [CONTRIBUTING](.github/CONTRIBUTING.md) for details.
-
-## Security Vulnerabilities
-
-Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
 
 ## Credits
 

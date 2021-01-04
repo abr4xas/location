@@ -2,25 +2,28 @@
 
 namespace Abr4xas\Location\Commands;
 
-use App\Models\State;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Http;
 
+/**
+ * @psalm-suppress PropertyNotSetInConstructor
+ */
 class LocationCommand extends Command
 {
+    use \Abr4xas\Location\Traits\MakeRequestTrait;
+
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'import:states-from {country=AR}';
+    protected $signature = 'import:states-from';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Import states from a specific country';
+    protected $description = 'Import states from a specific country using their ISO Alpha-2 code';
 
     /**
      * Create a new command instance.
@@ -39,31 +42,31 @@ class LocationCommand extends Command
      */
     public function handle()
     {
-        $country = $this->argument('country');
-        $statesResponse = $this->makeRequest("https://api.mercadolibre.com/classified_locations/countries/{$country}");
+        $country = $this->ask('What is your country code?');
 
-        $states = $statesResponse->json();
+        if ($this->confirm('Do you wish to continue?', true)) {
+            $statesResponse = $this->makeRequest('https://api.mercadolibre.com/classified_locations/countries/'. $country);
 
-        if (! empty($states)) {
-            $this->getOutput()->progressStart(count($states));
-            foreach ($states['states'] as $key) {
-                State::updateOrCreate([
-                    'code' => $key['id'],
-                ], [
-                    'name' => $key['name'],
-                    'code' => $key['id'],
-                    'slug' => \Illuminate\Support\Str::slug($key['name']),
-                ]);
+            $states = $statesResponse->json();
 
-                $this->getOutput()->progressAdvance();
+            if (! empty($states)) {
+                $this->getOutput()->progressStart(count($states));
+                foreach ($states['states'] as $key) {
+                    \Abr4xas\Location\Models\State::updateOrCreate([
+                        'code' => $key['id'],
+                    ], [
+                        'name' => $key['name'],
+                        'code' => $key['id'],
+                        'slug' => \Illuminate\Support\Str::slug($key['name']),
+                    ]);
+
+                    $this->getOutput()->progressAdvance();
+                }
+
+                $this->getOutput()->progressFinish();
             }
-
-            $this->getOutput()->progressFinish();
         }
-    }
 
-    public function makeRequest($url)
-    {
-        return Http::get($url);
+        $this->info('Ok...');
     }
 }

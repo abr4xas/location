@@ -9,12 +9,8 @@ use Illuminate\Support\ServiceProvider;
 
 class LocationServiceProvider extends ServiceProvider
 {
-    public function boot()
+    public function boot(): void
     {
-        $this->publishes([
-            __DIR__ . '/../models' => base_path('app/Models'),
-        ], 'models');
-
         if ($this->app->runningInConsole()) {
             $migrationsFileName = [
                 '2020_10_17_000001_create_states_table.php',

@@ -2,13 +2,15 @@
 
 namespace Abr4xas\Location\Commands;
 
-use App\Models\City;
-use App\Models\Neighborhood;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Http;
 
+/**
+ * @psalm-suppress PropertyNotSetInConstructor
+ */
 class NeighborhoodsCommand extends Command
 {
+    use \Abr4xas\Location\Traits\MakeRequestTrait;
+
     /**
      * The name and signature of the console command.
      *
@@ -40,7 +42,7 @@ class NeighborhoodsCommand extends Command
      */
     public function handle()
     {
-        $cities = City::pluck('code', 'id');
+        $cities = \Abr4xas\Location\Models\City::pluck('code', 'id');
 
         $this->getOutput()->progressStart(count($cities));
         foreach ($cities as $id => $code) {
@@ -49,7 +51,7 @@ class NeighborhoodsCommand extends Command
 
             if (! empty($neighborhoods['neighborhoods'])) {
                 foreach ($neighborhoods['neighborhoods'] as $key) {
-                    Neighborhood::updateOrCreate([
+                    \Abr4xas\Location\Models\Neighborhood::updateOrCreate([
                         'code' => $key['id'],
                     ], [
                         'name' => $key['name'],
@@ -69,10 +71,5 @@ class NeighborhoodsCommand extends Command
 
         $this->info('');
         $this->getOutput()->progressFinish();
-    }
-
-    public function makeRequest($url)
-    {
-        return Http::get($url);
     }
 }

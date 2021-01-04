@@ -17,13 +17,15 @@
     ],
     "require": {
         "php": "^7.4",
+        "guzzlehttp/guzzle": "^7.2",
         "illuminate/contracts": "^8.0"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^2.16",
+        "friendsofphp/php-cs-fixer": "^2.17",
         "orchestra/testbench": "^6.0",
         "phpunit/phpunit": "^9.3",
-        "vimeo/psalm": "^3.11"
+        "psalm/plugin-laravel": "^1.4",
+        "vimeo/psalm": "^4.3"
     },
     "autoload": {
         "psr-4": {
@@ -38,9 +40,10 @@
     },
     "scripts": {
         "psalm": "vendor/bin/psalm",
-        "test": "vendor/bin/phpunit --colors=always",
+        "test": "vendor/bin/phpunit --colors=always --testdox ",
         "test-coverage": "vendor/bin/phpunit --coverage-html coverage",
-        "format": "vendor/bin/php-cs-fixer fix --allow-risky=yes"
+        "format": "vendor/bin/php-cs-fixer fix --allow-risky=yes",
+        "all": "composer psalm && composer test && composer test-coverage && composer format"
     },
     "config": {
         "sort-packages": true
@@ -53,5 +56,15 @@
         }
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "funding": [
+        {
+            "type": "patreon",
+            "url": "https://www.patreon.com/angelcruzdev"
+        },
+        {
+            "type": "other",
+            "url": "https://ko-fi.com/angelcruzdev"
+        }
+    ]
 }
