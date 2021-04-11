@@ -16,7 +16,7 @@ class NeighborhoodsCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'import:neighborhoods';
+    protected $signature = 'meli:neighborhoods {token}';
 
     /**
      * The console command description.
@@ -44,9 +44,11 @@ class NeighborhoodsCommand extends Command
     {
         $cities = \Abr4xas\Location\Models\City::pluck('code', 'id');
 
+        $token = $this->argument('token');
+
         $this->getOutput()->progressStart(count($cities));
         foreach ($cities as $id => $code) {
-            $neighborhoodsResponse = $this->makeRequest('https://api.mercadolibre.com/classified_locations/cities/' . $code);
+            $neighborhoodsResponse = $this->makeRequest($token, 'https://api.mercadolibre.com/classified_locations/cities/' . $code);
             $neighborhoods = $neighborhoodsResponse->json();
 
             if (! empty($neighborhoods['neighborhoods'])) {

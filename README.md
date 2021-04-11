@@ -25,10 +25,12 @@ php artisan migrate
 ## Usage
 
 ``` bash
-php artisan import:states-from AR
-php artisan import:cities
-php artisan import:neighborhoods
+php artisan import:states-from AR <token>
+php artisan import:cities <token>
+php artisan import:neighborhoods <token>
 ```
+
+> NOTE: You need to generate an access token. You can do that <a href="https://meli.tepuilabs.dev/" target="_blank">here</a>.
 
 <details>
     <summary>country list:</summary>
