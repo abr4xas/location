@@ -16,7 +16,7 @@ class LocationCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'import:states-from';
+    protected $signature = 'meli:states-from {country} {token}';
 
     /**
      * The console command description.
@@ -42,10 +42,11 @@ class LocationCommand extends Command
      */
     public function handle()
     {
-        $country = $this->ask('What is your country code?');
+        $country = $this->argument('country');
+        $token = $this->argument('token');
 
         if ($this->confirm('Do you wish to continue?', true)) {
-            $statesResponse = $this->makeRequest('https://api.mercadolibre.com/classified_locations/countries/'. $country);
+            $statesResponse = $this->makeRequest($token, 'https://api.mercadolibre.com/classified_locations/countries/'. $country);
 
             $states = $statesResponse->json();
 

@@ -16,7 +16,7 @@ class CitiesCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'import:cities';
+    protected $signature = 'meli:cities {token}';
 
     /**
      * The console command description.
@@ -44,9 +44,11 @@ class CitiesCommand extends Command
     {
         $states = \Abr4xas\Location\Models\State::pluck('code', 'id');
 
+        $token = $this->argument('token');
+
         $this->getOutput()->progressStart(count($states));
         foreach ($states as $id => $code) {
-            $cityResponse = $this->makeRequest('https://api.mercadolibre.com/classified_locations/states/' . $code);
+            $cityResponse = $this->makeRequest($token, 'https://api.mercadolibre.com/classified_locations/states/' . $code);
             $cities = $cityResponse->json();
 
             foreach ($cities['cities'] as $key) {
