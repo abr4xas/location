@@ -3,22 +3,25 @@
     "description": "Import states > cities > neighborhood",
     "keywords": [
         "abr4xas",
-        "location"
+        "location",
+        "states",
+        "countries",
+        "mercado libre"
     ],
     "homepage": "https://github.com/abr4xas/location",
     "license": "MIT",
     "authors": [
         {
             "name": "angel cruz",
-            "email": "bullgram@gmail.com",
+            "email": "angel@tepuilabs.dev",
             "homepage": "https://angelcruz.dev",
             "role": "Developer"
         }
     ],
     "require": {
-        "php": "^7.4",
-        "guzzlehttp/guzzle": "^7.2",
-        "illuminate/contracts": "^8.0"
+        "php": "^8.0",
+        "guzzlehttp/guzzle": "^7.3",
+        "illuminate/contracts": "^8.50"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.17",
