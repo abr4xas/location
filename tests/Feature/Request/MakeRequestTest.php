@@ -4,7 +4,6 @@ namespace Abr4xas\Location\Tests\Feature\Request;
 use Abr4xas\Location\Tests\TestCase;
 use Illuminate\Support\Facades\Http;
 
-
 class MakeRequestTest extends TestCase
 {
     public const COUNTRY_VE = 'https://api.mercadolibre.com/classified_locations/countries/VE';
