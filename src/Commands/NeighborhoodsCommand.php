@@ -2,14 +2,14 @@
 
 namespace Abr4xas\Location\Commands;
 
+use Abr4xas\Location\Models\City;
+use Abr4xas\Location\Models\Neighborhood;
+use Abr4xas\Location\Traits\MakeRequestTrait;
 use Illuminate\Console\Command;
 
-/**
- * @psalm-suppress PropertyNotSetInConstructor
- */
 class NeighborhoodsCommand extends Command
 {
-    use \Abr4xas\Location\Traits\MakeRequestTrait;
+    use MakeRequestTrait;
 
     /**
      * The name and signature of the console command.
@@ -38,22 +38,27 @@ class NeighborhoodsCommand extends Command
     /**
      * Execute the console command.
      *
-     * @return void
+     * @return int
      */
-    public function handle()
+    public function handle(): int
     {
-        $cities = \Abr4xas\Location\Models\City::pluck('code', 'id');
-
         $token = $this->argument('token');
 
+        if (! $token) {
+            $this->error('You need to provide a token');
+
+            return self::FAILURE;
+        }
+
+        $cities = City::pluck('code', 'id');
         $this->getOutput()->progressStart(count($cities));
         foreach ($cities as $id => $code) {
-            $neighborhoodsResponse = $this->makeRequest($token, 'https://api.mercadolibre.com/classified_locations/cities/' . $code);
+            $neighborhoodsResponse = $this->makeRequest($token, 'https://api.mercadolibre.com/classified_locations/cities/'.$code);
             $neighborhoods = $neighborhoodsResponse->json();
 
             if (! empty($neighborhoods['neighborhoods'])) {
                 foreach ($neighborhoods['neighborhoods'] as $key) {
-                    \Abr4xas\Location\Models\Neighborhood::updateOrCreate([
+                    Neighborhood::updateOrCreate([
                         'code' => $key['id'],
                     ], [
                         'name' => $key['name'],
@@ -73,5 +78,7 @@ class NeighborhoodsCommand extends Command
 
         $this->info('');
         $this->getOutput()->progressFinish();
+
+        return self::SUCCESS;
     }
 }
