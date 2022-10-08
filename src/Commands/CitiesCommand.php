@@ -2,14 +2,15 @@
 
 namespace Abr4xas\Location\Commands;
 
+use Abr4xas\Location\Models\City;
+use Abr4xas\Location\Models\State;
+use Abr4xas\Location\Traits\MakeRequestTrait;
 use Illuminate\Console\Command;
+use Illuminate\Support\Str;
 
-/**
- * @psalm-suppress PropertyNotSetInConstructor
- */
 class CitiesCommand extends Command
 {
-    use \Abr4xas\Location\Traits\MakeRequestTrait;
+    use MakeRequestTrait;
 
     /**
      * The name and signature of the console command.
@@ -38,21 +39,26 @@ class CitiesCommand extends Command
     /**
      * Execute the console command.
      *
-     * @return void
+     * @return int
      */
-    public function handle()
+    public function handle(): int
     {
-        $states = \Abr4xas\Location\Models\State::pluck('code', 'id');
-
         $token = $this->argument('token');
 
+        if (! $token) {
+            $this->error('You need to provide a token');
+
+            return self::FAILURE;
+        }
+
+        $states = State::pluck('code', 'id');
         $this->getOutput()->progressStart(count($states));
         foreach ($states as $id => $code) {
-            $cityResponse = $this->makeRequest($token, 'https://api.mercadolibre.com/classified_locations/states/' . $code);
+            $cityResponse = $this->makeRequest($token, 'https://api.mercadolibre.com/classified_locations/states/'.$code);
             $cities = $cityResponse->json();
 
             foreach ($cities['cities'] as $key) {
-                \Abr4xas\Location\Models\City::updateOrCreate([
+                City::updateOrCreate([
                     'code' => $key['id'],
                 ], [
                     'name' => $key['name'],
@@ -60,12 +66,14 @@ class CitiesCommand extends Command
                     'latitude' => $cities['geo_information']['location']['latitude'],
                     'longitude' => $cities['geo_information']['location']['longitude'],
                     'state_id' => $id,
-                    'slug' => \Illuminate\Support\Str::slug($key['name']),
+                    'slug' => Str::slug($key['name']),
                 ]);
             }
             $this->getOutput()->progressAdvance();
         }
 
         $this->getOutput()->progressFinish();
+
+        return self::SUCCESS;
     }
 }

@@ -2,14 +2,14 @@
 
 namespace Abr4xas\Location\Commands;
 
+use Abr4xas\Location\Models\State;
+use Abr4xas\Location\Traits\MakeRequestTrait;
 use Illuminate\Console\Command;
+use Illuminate\Support\Str;
 
-/**
- * @psalm-suppress PropertyNotSetInConstructor
- */
-class LocationCommand extends Command
+class StatesCommand extends Command
 {
-    use \Abr4xas\Location\Traits\MakeRequestTrait;
+    use MakeRequestTrait;
 
     /**
      * The name and signature of the console command.
@@ -38,27 +38,34 @@ class LocationCommand extends Command
     /**
      * Execute the console command.
      *
-     * @return void
+     * @return int
      */
-    public function handle()
+    public function handle(): int
     {
-        $country = $this->argument('country');
         $token = $this->argument('token');
 
+        if (! $token) {
+            $this->error('You need to provide a token');
+
+            return self::FAILURE;
+        }
+
+        $country = $this->argument('country');
+
         if ($this->confirm('Do you wish to continue?', true)) {
-            $statesResponse = $this->makeRequest($token, 'https://api.mercadolibre.com/classified_locations/countries/'. $country);
+            $statesResponse = $this->makeRequest($token, 'https://api.mercadolibre.com/classified_locations/countries/'.$country);
 
             $states = $statesResponse->json();
 
             if (! empty($states)) {
                 $this->getOutput()->progressStart(count($states));
                 foreach ($states['states'] as $key) {
-                    \Abr4xas\Location\Models\State::updateOrCreate([
+                    State::updateOrCreate([
                         'code' => $key['id'],
                     ], [
                         'name' => $key['name'],
                         'code' => $key['id'],
-                        'slug' => \Illuminate\Support\Str::slug($key['name']),
+                        'slug' => Str::slug($key['name']),
                     ]);
 
                     $this->getOutput()->progressAdvance();
@@ -69,5 +76,7 @@ class LocationCommand extends Command
         }
 
         $this->info('Ok...');
+
+        return self::SUCCESS;
     }
 }
