@@ -9,10 +9,6 @@ trait MakeRequestTrait
 {
     /**
      * makeRequest
-     *
-     * @param  string  $token
-     * @param  string  $url
-     * @return Response
      */
     public function makeRequest(string $token, string $url): Response
     {

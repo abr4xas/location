@@ -24,8 +24,6 @@ class City extends Model
 
     /**
      * Undocumented function
-     *
-     * @return BelongsTo
      */
     public function state(): BelongsTo
     {
@@ -34,8 +32,6 @@ class City extends Model
 
     /**
      * Undocumented function
-     *
-     * @return HasMany
      */
     public function neighborhoods(): HasMany
     {

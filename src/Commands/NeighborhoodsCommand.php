@@ -37,8 +37,6 @@ class NeighborhoodsCommand extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return int
      */
     public function handle(): int
     {
@@ -66,7 +64,7 @@ class NeighborhoodsCommand extends Command
                         'latitude' => $neighborhoods['geo_information']['location']['latitude'],
                         'longitude' => $neighborhoods['geo_information']['location']['longitude'],
                         'city_id' => $id,
-                        'slug' => \Illuminate\Support\Str::slug($key['name']),
+                        'slug' => str()->slug($key['name']),
                     ]);
                 }
 

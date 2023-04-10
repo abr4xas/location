@@ -23,8 +23,6 @@ class Neighborhood extends Model
 
     /**
      * Undocumented function
-     *
-     * @return BelongsTo
      */
     public function state(): BelongsTo
     {

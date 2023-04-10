@@ -9,8 +9,8 @@ use Illuminate\Support\Facades\Facade;
  */
 class Location extends Facade
 {
-    protected static function getFacadeAccessor()
+    protected static function getFacadeAccessor(): string
     {
-        return \Abr4xas\Location\Location::class;
+        return Location::class;
     }
 }

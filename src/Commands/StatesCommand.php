@@ -5,7 +5,6 @@ namespace Abr4xas\Location\Commands;
 use Abr4xas\Location\Models\State;
 use Abr4xas\Location\Traits\MakeRequestTrait;
 use Illuminate\Console\Command;
-use Illuminate\Support\Str;
 
 class StatesCommand extends Command
 {
@@ -37,8 +36,6 @@ class StatesCommand extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return int
      */
     public function handle(): int
     {
@@ -65,7 +62,7 @@ class StatesCommand extends Command
                     ], [
                         'name' => $key['name'],
                         'code' => $key['id'],
-                        'slug' => Str::slug($key['name']),
+                        'slug' => str()->slug($key['name']),
                     ]);
 
                     $this->getOutput()->progressAdvance();

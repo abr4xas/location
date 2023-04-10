@@ -20,8 +20,6 @@ class State extends Model
 
     /**
      * Undocumented function
-     *
-     * @return HasMany
      */
     public function cities(): HasMany
     {

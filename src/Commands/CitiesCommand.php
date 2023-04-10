@@ -6,7 +6,6 @@ use Abr4xas\Location\Models\City;
 use Abr4xas\Location\Models\State;
 use Abr4xas\Location\Traits\MakeRequestTrait;
 use Illuminate\Console\Command;
-use Illuminate\Support\Str;
 
 class CitiesCommand extends Command
 {
@@ -38,8 +37,6 @@ class CitiesCommand extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return int
      */
     public function handle(): int
     {
@@ -66,7 +63,7 @@ class CitiesCommand extends Command
                     'latitude' => $cities['geo_information']['location']['latitude'],
                     'longitude' => $cities['geo_information']['location']['longitude'],
                     'state_id' => $id,
-                    'slug' => Str::slug($key['name']),
+                    'slug' => str()->slug($key['name']),
                 ]);
             }
             $this->getOutput()->progressAdvance();
