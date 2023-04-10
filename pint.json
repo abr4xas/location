@@ -1,0 +1,13 @@
+{
+    "preset": "laravel",
+    "rules": {
+        "phpdoc_line_span": {
+            "property": "single",
+            "const": "single",
+            "method": "single"
+        }
+    },
+    "exclude": [
+        "build"
+    ]
+}

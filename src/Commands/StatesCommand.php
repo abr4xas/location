@@ -34,9 +34,7 @@ class StatesCommand extends Command
         parent::__construct();
     }
 
-    /**
-     * Execute the console command.
-     */
+    /** Execute the console command. */
     public function handle(): int
     {
         $token = $this->argument('token');

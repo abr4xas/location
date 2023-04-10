@@ -6,12 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * Abr4xas\Location\Models\City
+ *
+ * @property string $code
+ */
 class City extends Model
 {
     /**
      * The attributes that are mass assignable.
      *
-     * @var array
+     * @var string[]
      */
     protected $fillable = [
         'name',
@@ -22,17 +27,13 @@ class City extends Model
         'slug',
     ];
 
-    /**
-     * Undocumented function
-     */
+    /** Undocumented function */
     public function state(): BelongsTo
     {
         return $this->belongsTo(State::class);
     }
 
-    /**
-     * Undocumented function
-     */
+    /** Undocumented function */
     public function neighborhoods(): HasMany
     {
         return $this->hasMany(Neighborhood::class);
