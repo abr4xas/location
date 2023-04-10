@@ -7,13 +7,7 @@ use Illuminate\Support\Facades\Http;
 
 trait MakeRequestTrait
 {
-    /**
-     * makeRequest
-     *
-     * @param  string  $token
-     * @param  string  $url
-     * @return Response
-     */
+    /** makeRequest */
     public function makeRequest(string $token, string $url): Response
     {
         return Http::withToken($token)->get($url);

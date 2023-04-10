@@ -5,12 +5,17 @@ namespace Abr4xas\Location\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * Abr4xas\Location\Models\Neighborhood
+ *
+ * @property string $code
+ */
 class Neighborhood extends Model
 {
     /**
      * The attributes that are mass assignable.
      *
-     * @var array
+     * @var string[]
      */
     protected $fillable = [
         'name',
@@ -21,11 +26,7 @@ class Neighborhood extends Model
         'slug',
     ];
 
-    /**
-     * Undocumented function
-     *
-     * @return BelongsTo
-     */
+    /** Undocumented function */
     public function state(): BelongsTo
     {
         return $this->belongsTo(City::class);

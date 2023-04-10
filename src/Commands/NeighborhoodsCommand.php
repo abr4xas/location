@@ -35,11 +35,7 @@ class NeighborhoodsCommand extends Command
         parent::__construct();
     }
 
-    /**
-     * Execute the console command.
-     *
-     * @return int
-     */
+    /** Execute the console command. */
     public function handle(): int
     {
         $token = $this->argument('token');
@@ -66,7 +62,7 @@ class NeighborhoodsCommand extends Command
                         'latitude' => $neighborhoods['geo_information']['location']['latitude'],
                         'longitude' => $neighborhoods['geo_information']['location']['longitude'],
                         'city_id' => $id,
-                        'slug' => \Illuminate\Support\Str::slug($key['name']),
+                        'slug' => str()->slug($key['name']),
                     ]);
                 }
 
