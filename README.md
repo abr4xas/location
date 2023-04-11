@@ -19,7 +19,7 @@ composer require abr4xas/location
 You can publish and run the migrations with:
 
 ```bash
-php artisan vendor:publish --provider="Abr4xas\Location\LocationServiceProvider" --tag="migrations"
+php artisan vendor:publish --provider="Abr4xas\Location\LocationServiceProvider" --tag="location-migrations"
 php artisan migrate
 ```
 ## Usage
